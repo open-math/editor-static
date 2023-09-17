@@ -3,6 +3,9 @@ let ws: WebSocket;
 
 export let liveReload = (retry: boolean = false) =>
 {
+    if (location.hostname !== 'localhost')
+        return;
+
     ws = new WebSocket('ws://localhost:8080');
 
     ws.onopen = () =>
