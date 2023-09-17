@@ -1,6 +1,5 @@
 {
     "name": "omath-editor",
-    "version": "1.0.0",
     "scripts": {
         "build": "npx ts-node src/cli.ts build",
         "watch": "npx nodemon src/cli.ts watch"
