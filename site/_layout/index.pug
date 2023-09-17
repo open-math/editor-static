@@ -1,0 +1,72 @@
+doctype html
+html
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        meta(name="color-scheme", content="dark")
+
+        title OMath Editor
+
+        // Icons
+        link(rel="stylesheet", href="/assets/fonts/icons/style.css")
+
+        // Loader
+        script(src="/assets/vendor/monaco/min/vs/loader.js")
+
+        // Core
+        link(rel="stylesheet", href="/style.css")
+        script(src="/script.js")
+    body
+        aside.menu
+            button(data-pane="main")
+                .inner
+                    include logo.svg
+            button(data-pane="info")
+                .inner
+                    i.i-circle-info
+            button(data-pane="files")
+                .inner
+                    i.i-folder-tree
+        aside.panes
+            .pane(data-pane="main")
+                button.export
+                    i.i-download
+                    span Export
+                button.import
+                    i.i-upload
+                    span Import
+                button.reset
+                    i.i-trash-can
+                    span Reset
+            .pane(data-pane="info")
+                input.title(type="text", placeholder="Title")
+                textarea.desc(placeholder="Description")
+                textarea.tags(placeholder="Tags")
+                textarea.contributors(placeholder="Contributors")
+
+            .pane(data-pane="files")
+                input(type="file", style="display: none;")
+                img()
+                .loadingOverlay
+                    i.i-rotate
+                .filesWrapper
+
+        main
+            header
+                .tabs
+                    button(title="Article", data-tab="article")
+                        i.i-topic-article
+                    button(title="Summary", data-tab="summary")
+                        i.i-topic-summary
+                    button(title="Practicum", data-tab="practicum")
+                        i.i-topic-practicum
+
+                button Tutorial
+                button.themeSwitch Switch Theme
+            .wrapper
+                .editor
+                .grip
+                    i.i-grip-vertical
+                .preview
+                    .resizeOverlay
+                    iframe(src="preview/index.html")

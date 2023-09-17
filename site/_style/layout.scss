@@ -1,0 +1,74 @@
+@use 'def/size';
+
+@use 'include/util';
+
+body > aside.menu
+{
+    position: absolute;
+    z-index: 2;
+    left: 0;
+
+    @include util.size(size.$asideMenu, 100vh);
+    height: 100dvh;
+}
+
+body > aside.panes
+{
+    position: absolute;
+    z-index: 1;
+    left: calc(size.$asideMenu);
+
+    @include util.size(size.$asidePane, 100vh);
+    height: 100dvh;
+
+    @include util.transition(left);
+
+    &:not([data-pane])
+    {
+        left: calc(size.$asideMenu - size.$asidePane);
+
+        & + main
+        {
+            left: size.$asideMenu;
+        }
+    }
+}
+
+body > main
+{
+    position: absolute;
+    z-index: 3;
+    left: calc(size.$asideMenu + size.$asidePane);
+    right: 0;
+
+    height: 100vh;
+    height: 100dvh;
+
+    @include util.transition(left);
+
+    > header
+    {
+        height: 50px;
+    }
+
+    > .wrapper
+    {
+        display: flex;
+        height: calc(100% - 50px);
+
+        > .grip
+        {
+            flex-shrink: 0;
+            width: 15px;
+            user-select: none;
+        }
+
+        > .editor,
+        > .preview
+        {
+            flex: 1;
+            min-width: 150px;
+            height: 100%;
+        }
+    }
+}

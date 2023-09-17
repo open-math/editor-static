@@ -1,0 +1,15 @@
+@mixin themeLight   { html:not([data-theme=dark]) & { @content; } }
+@mixin themeDark    { html[data-theme=dark] &, html[data-theme=auto-dark] & { @content; } }
+
+//
+
+$palette: (
+    bg: #181818,
+    bg-accent: #2d2d2d,
+
+    text: #C8C8C8,
+    text-muted: #8c8c8c,
+    text-dimmed: #616161,
+
+    border: #323232,
+);

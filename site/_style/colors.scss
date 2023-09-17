@@ -1,0 +1,13 @@
+@use 'def/color';
+
+//
+// Generating light and dark CSS-variable color palettes
+//
+
+html
+{
+    @each $name, $color in color.$palette
+    {
+        --c_#{$name}: #{$color};
+    }
+}

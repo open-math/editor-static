@@ -1,0 +1,18 @@
+%scrollbar
+{
+    &::-webkit-scrollbar
+    {
+        height: 5px;
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb
+    {
+        background: var(--c_border);
+    }
+
+    &::-webkit-scrollbar-corner
+    {
+        background: var(--c_border);
+    }
+}

@@ -1,0 +1,30 @@
+//
+// Reset
+//
+
+*
+{
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+}
+
+input, select, textarea, button { font-family: inherit; }
+
+ul, ol { list-style-position: inside; }
+
+//
+//
+//
+
+html
+{
+    --transitionSpeed: .2;
+}
+
+body
+{
+    font-family: "Open Sans", sans-serif;
+    color: var(--c_text);
+}

@@ -1,0 +1,298 @@
+@use 'def/size';
+@use 'include/util';
+@use 'include/scroll';
+
+body > aside
+{
+    background: var(--c_bg);
+    border-right: 1px solid var(--c_border);
+}
+
+body > aside.menu
+{
+    > button
+    {
+        position: relative;
+
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        background: transparent;
+        cursor: pointer;
+
+        color: var(--c_text-dimmed);
+        @include util.transition(color);
+
+        &:not([data-current]):hover
+        {
+            color: var(--c_text);
+            &::after
+            {
+                background: var(--c_border);
+            }
+        }
+
+        &[data-current]
+        {
+            color: var(--c_text);
+            &::after { background: var(--c_text-dimmed); }
+        }
+
+        &::after
+        {
+            content: "";
+            position: absolute;
+            top: 3px; bottom: 3px;
+            right: 0;
+            width: 2px;
+            background: transparent;
+            @include util.transition(background);
+        }
+
+        &[data-pane="main"]
+        {
+            > .inner > svg
+            {
+                width: 25px;
+                height: 25px;
+            }
+        }
+
+        > .inner
+        {
+            @include util.flexCC;
+            font-size: 21px;
+        }
+    }
+}
+
+body > aside.panes
+{
+    > .pane
+    {
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        overflow: auto;
+
+        @extend %scrollbar;
+        @include util.transition(opacity);
+    }
+
+    $panes: main, info, files, log;
+
+    @each $pane in $panes
+    {
+        &:not([data-pane="#{$pane}"]) > .pane[data-pane="#{$pane}"]
+        {
+            pointer-events: none;
+            touch-action: none;
+            opacity: 0;
+        }
+    }
+}
+
+//
+// Panes
+//
+
+body > aside.panes > .pane
+{
+    //
+    // Main
+    //
+
+    &[data-pane="main"]
+    {
+        display: flex;
+        flex-direction: column;
+
+        button
+        {
+            display: flex;
+            align-items: center;
+            gap: size.$gapSmall;
+            background: transparent;
+            border-bottom: 1px solid var(--c_border);
+            padding: size.$gap;
+
+            cursor: pointer;
+
+            @include util.transition(background);
+
+            color: var(--c_text);
+            font-size: 105%;
+            i { font-size: 17px; }
+
+            &:hover
+            {
+                background: var(--c_bg-accent);
+            }
+
+            //
+
+            &.reset
+            {
+                color: rgb(211, 21, 21);
+            }
+        }
+    }
+
+    //
+    // Info
+    //
+
+    &[data-pane="info"]
+    {
+        display: flex;
+        flex-direction: column;
+        gap: size.$gap;
+
+        padding: size.$gap;
+
+        > *
+        {
+            border-radius: size.$borderRadius;
+            padding: 5px;
+        }
+
+        textarea
+        {
+            resize: vertical;
+        }
+    }
+
+    //
+    // Files
+    //
+
+    &[data-pane="files"]
+    {
+        > .loadingOverlay
+        {
+            position: absolute;
+            left: 0; right: 0; top: 0; bottom: 0;
+            z-index: 2;
+            background: rgba(30, 30, 30, .85);
+            @include util.flexCC;
+
+            color: var(--c_text-muted);
+            font-size: 40px;
+
+            @include util.transition(opacity);
+
+            > i
+            {
+                animation: filesRefreshAnim 3s linear infinite;
+
+                @keyframes filesRefreshAnim
+                {
+                    100% { transform: rotate(360deg); }
+                }
+            }
+        }
+        &:not([data-refreshing]) > .loadingOverlay
+        {
+            opacity: 0;
+            pointer-events: none;
+            touch-action: none;
+        }
+
+        > .filesWrapper
+        {
+            position: absolute;
+            left: 0; right: 0; top: 0; bottom: 0;
+            z-index: 1;
+
+            overflow: auto;
+            @extend %scrollbar;
+
+            > .folder
+            {
+                border-bottom: 1px solid var(--c_border);
+
+                //
+                // REFACTOR THIS PIECE OF SHIT!!!!!1111
+                //
+
+                > header
+                {
+                    display: flex;
+                    align-items: center;
+                    padding-left: size.$gap;
+
+                    height: 49px;
+
+                    > .name
+                    {
+                        flex: 1;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        font-weight: 600;
+                    }
+
+                    > .actions
+                    {
+                        display: flex;
+
+                        > .action
+                        {
+                            color: var(--c_text-muted);
+                            padding: size.$gapSmall;
+                            font-size: 15px;
+                            cursor: pointer;
+
+                            @include util.transition(color);
+
+                            &:hover
+                            {
+                                color: var(--c-text);
+                            }
+                        }
+                    }
+                }
+
+                > .content
+                {
+                    & > .file:first-of-type { border-top: 1px solid var(--c_border); }
+
+                    > .file
+                    {
+                        display: flex;
+                        align-items: center;
+                        padding-left: size.$gap;
+
+                        > .name
+                        {
+                            flex: 1;
+                            font-size: 90%;
+                            font-family: 'Consolas', monospace;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
+
+                        > .actions
+                        {
+                            display: flex;
+
+                            > .action
+                            {
+                                color: var(--c_text-muted);
+                                padding: size.$gapSmall;
+                                font-size: 15px;
+                                cursor: pointer;
+
+                                @include util.transition(color);
+
+                                &:hover
+                                {
+                                    color: var(--c-text);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
