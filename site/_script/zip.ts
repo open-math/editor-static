@@ -51,8 +51,9 @@ export async function importTopic()
                 if (info.contributors)  State.set(StateProp.Contributors, info.contributors.join('\n'));
                 break;
             default:
-                console.log(entry);
                 let parts = entry.filename.split('/');
+                if (parts.length === 1)
+                    break;
                 let folder = parts.at(-2);
                 let filename = parts.at(-1);
                 
