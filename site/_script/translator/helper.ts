@@ -42,7 +42,6 @@ export class EditorHelper extends Helper
 
     async getUnique(id: string)
     {
-        console.log('test1');
         return UNIQUE.get(id);
     }
 
