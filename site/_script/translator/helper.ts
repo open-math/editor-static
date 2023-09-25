@@ -4,6 +4,8 @@ import { UNIQUE } from "./unique";
 
 export class EditorHelper extends Helper
 {
+    isEditor() { return true; }
+
     async getParserFileSrc(location: Location): Promise<string>
     {
         if (location.type === LocationType.Topic && location.path === 'localhost')

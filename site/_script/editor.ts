@@ -53,6 +53,7 @@ export function setEditorContent(topicPart: string)
 function onEditorChange(content: string)
 {
     let currentChangeId = ++changeId;
+
     TRANSLATOR.translate(content).then(renderResult =>
     {
         if (currentChangeId !== changeId)

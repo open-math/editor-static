@@ -11,7 +11,9 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
-          npm ci
+          npm i
+          npm uninstall translator
+          npm install open-math/translator
           npm run build
       
       - name: Deploy 🚀

@@ -1,6 +1,5 @@
 {
     "name": "omath-editor",
-    "version": "1.0.0",
     "scripts": {
         "build": "npx ts-node src/cli.ts build",
         "watch": "npx nodemon src/cli.ts watch"
@@ -15,7 +14,7 @@
         "pug": "^3.0.2",
         "rimraf": "^5.0.1",
         "sass": "^1.63.6",
-        "translator": "github:open-math/translator",
+        "translator": "file:../translator",
         "ts-node": "^10.9.1",
         "tsconfig-paths": "^4.2.0",
         "typescript": "^5.1.6",
