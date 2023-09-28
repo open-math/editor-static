@@ -22,6 +22,7 @@ export class FileUi
         {
             let folder = this.input.getAttribute('data-target-folder');
             let file = (e.target as any).files[0];
+            this.input.value = null;
 
             this.withUpdateUi(async () => await FILES.addFile(folder, file));
         }
