@@ -6,7 +6,7 @@ import chokidar from "chokidar";
 import fs from "fs";
 
 import { buildLayout, buildPreview } from "./bundle/layout";
-import { bundlePreviewScripts, bundleScripts } from "./bundle/script";
+import { bundlePreviewScripts, bundleScripts, bundledWorker } from "./bundle/script";
 import { Config, setConfig } from "./config";
 import { bundlePreviewStyles, bundleStyles } from "./bundle/style";
 import { moveFiles } from "./bundle/files";
@@ -85,7 +85,9 @@ async function build()
     await clear();
 
     buildLayout();
+
     bundleScripts();
+    bundledWorker();
     bundleStyles();
     moveFiles();
 

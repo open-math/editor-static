@@ -1,5 +1,4 @@
-import { setContent } from "iframe";
-import { TRANSLATOR } from "./translator/translator";
+import { translate } from "content/workerClient";
 import { State } from "state";
 import { getCurrentTab } from "tab";
 
@@ -52,13 +51,5 @@ export function setEditorContent(topicPart: string)
 
 function onEditorChange(content: string)
 {
-    let currentChangeId = ++changeId;
-
-    TRANSLATOR.translate(content).then(renderResult =>
-    {
-        if (currentChangeId !== changeId)
-            return;
-        
-        setContent(renderResult);
-    });
+    translate({ tab: getCurrentTab(), content: content });
 }

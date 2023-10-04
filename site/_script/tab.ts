@@ -1,5 +1,3 @@
-import { LOCATION } from "./translator/translator";
-
 import { setEditorContent } from "editor";
 import { State, StateProp } from "state";
 
@@ -37,6 +35,4 @@ function setCurrentTab(tab: string, updateEditor: boolean = true)
     {
         setEditorContent(tab);
     }
-
-    LOCATION.type = tab;
 }

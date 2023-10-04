@@ -97,6 +97,14 @@ export class FileManager
             dataURL = await fileToDataUrl(file as File);
 
         await set(folder + '/' + filename, dataURL);
+
+        try
+        {
+            let size = await getImageSize(dataURL);
+            await set(folder + '/' + filename + ':size', { width: size.width, height: size.height });
+        }
+        catch (e) {}
+
         this.filesMap[folder][filename] = null;
 
         this.save();
@@ -111,6 +119,8 @@ export class FileManager
     async removeFile(folder: string, file: string)
     {
         await del(folder + '/' + file);
+        await del(folder + '/' + file + ':size');
+
         delete this.filesMap[folder][file];
 
         this.save();
@@ -141,6 +151,10 @@ export class FileManager
 
 export let FILES = new FileManager;
 
+//
+//
+//
+
 export async function fileToDataUrl(file: File)
 {
     return new Promise(resolve =>
@@ -148,5 +162,16 @@ export async function fileToDataUrl(file: File)
         let reader = new FileReader;
             reader.onload = e => resolve(e.target.result);
             reader.readAsDataURL(file);
+    });
+}
+
+async function getImageSize(src: string): Promise<{ width: number, height: number }>
+{
+    return new Promise((resolve, reject) =>
+    {
+        let img = new Image;
+            img.onload = () => { resolve({ width: img.width, height: img.height }); };
+            img.onerror = reject;
+            img.src = src;
     });
 }

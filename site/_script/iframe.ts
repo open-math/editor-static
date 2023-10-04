@@ -14,17 +14,19 @@ function postMessage(message: any)
     iframe.contentWindow.postMessage(message);
 }
 
-export function switchTheme()
+//
+
+export function switchPreviewTheme()
 {
     postMessage({ command: IFRAME_COMMAND.SwitchTheme });
 }
 
-export function setContent(content: string)
+export function setPreviewContent(content: string)
 {
     postMessage({ command: IFRAME_COMMAND.SetContent, content: content });
 }
 
-export function sendUnique(uniqueId: string, uniqueContent: string)
+export function sendUniqueToPreview(uniqueId: string, uniqueContent: string)
 {
     postMessage({
         command: 'renderUnique',

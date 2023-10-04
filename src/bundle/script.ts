@@ -17,8 +17,20 @@ export function bundleScripts()
 export function bundlePreviewScripts()
 {
     esbuild.buildSync({
-        entryPoints: ['site/_script/preview/index.ts'],
+        entryPoints: ['site/_script/_preview/index.ts'],
         outfile: 'dist/preview/script.js',
+        charset: 'utf8',
+        bundle: true,
+        sourcemap: CONFIG.watch,
+        minify: !CONFIG.watch
+    });
+}
+
+export function bundledWorker()
+{
+    esbuild.buildSync({
+        entryPoints: ['site/_script/_worker/translator.ts'],
+        outfile: 'dist/worker.js',
         charset: 'utf8',
         bundle: true,
         sourcemap: CONFIG.watch,

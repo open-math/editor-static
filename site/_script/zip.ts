@@ -56,9 +56,19 @@ export async function importTopic()
                     break;
                 let folder = parts.at(-2);
                 let filename = parts.at(-1);
-                
-                await FILES.addFolder(folder);
-                await FILES.addFile(folder, filename, await entry.getData(new zip.Data64URIWriter()));
+
+                if (folder)
+                    await FILES.addFolder(folder);
+
+                if (filename)
+                {
+                    let dataURL = await entry.getData(new zip.Data64URIWriter());
+
+                    if (filename.endsWith('.svg'))
+                        dataURL = dataURL.replace('data:', 'data:image/svg+xml');
+
+                    await FILES.addFile(folder, filename, dataURL);
+                }
                 break;
         }
     }

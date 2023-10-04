@@ -1,45 +1,39 @@
-import { FILES } from "file/manager";
-import { Helper, Location, LocationType } from "translator";
+import { get } from "idb-keyval/dist/index.cjs";
+import { Helper, Location } from "translator";
 import { UNIQUE } from "./unique";
+
+function normalizePath(path: string)
+{
+    let parts = path.split('/');
+
+    if (parts.length === 3)
+        parts.shift();
+
+    return parts.join('/');
+}
 
 export class EditorHelper extends Helper
 {
     isEditor() { return true; }
 
-    async getParserFileSrc(location: Location): Promise<string>
+    async hasImage(location: Location): Promise<boolean>
     {
-        if (location.type === LocationType.Topic && location.path === 'localhost')
-        {
-            if (!FILES.hasPath(location.target))
-                throw new Error(`Missing file '${location.target}'!`);
-
-            return await FILES.getFile(location.target);
-        }
-        else return '';
+        return !!(await get(normalizePath(location.target)));
     }
 
-    async getRenderFileSrc(location: Location): Promise<string>
+    async getImageSrc(location: Location): Promise<string>
     {
-        if (location.type === LocationType.Topic && location.path === 'localhost')
-            return await FILES.getFile(location.target);
-        else
-            return '/assets/images/sample-image.svg';
+        return (await get(normalizePath(location.target)));
     }
 
-    async getImageSize(src: string): Promise<{ width: number; height: number; }>
+    async getImageSize(location: Location): Promise<{ width: number; height: number; }>
     {
-        if (src === '')
-            return { width: 800, height: 300 };
+        let size = await get(normalizePath(location.target) + ':size');
 
-        return await new Promise(resolve =>
-        {
-            let img = new Image;
-                img.onload = () =>
-                {
-                    resolve({ width: img.width, height: img.height });
-                };
-                img.src = src;
-        });
+        if (!size)
+            throw new Error(`No image size found for image '${location}'!`);
+
+        return { width: size.width, height: size.height };
     }
 
     async getUnique(id: string)
