@@ -141,8 +141,14 @@ export async function exportTopic()
 
     let zipFileBlob = new Blob([await zipFileWriter.getData()], { type: 'application/zip' });
     
+    let date = new Date;
+    let dateStr = `-${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}-${date.getHours()}.${date.getMinutes()}`;
+
+    let filename = title ?? 'topic';
+        filename += dateStr + '.zip';
+
     let link = document.createElement('a');
-        link.setAttribute('download', 'topic');
+        link.setAttribute('download', filename);
         link.href = URL.createObjectURL(zipFileBlob);
         document.body.appendChild(link);
         link.click();
