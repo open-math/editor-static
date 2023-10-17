@@ -75,7 +75,12 @@ async function translate(tab: string, content: string): Promise<TranslatorResult
         location.path = 'localhost';
 
     let parser = new Parser(location, helper);
-    let renderer = new Renderer(location, helper);    
+    let renderer = new Renderer(location, helper);
+
+    renderer.onRenderError = (p, e) =>
+    {
+        console.error(e);
+    }
 
     let result = new TranslatorResult;
         result.parseResult = await parser.parse(content);

@@ -63,9 +63,12 @@ export class EditorHelper extends Helper
             },
             task:
             {
-                hint: 'Hint',
-                answer: 'Answer',
-                solution: 'Solution'
+                hint:       'Hint',
+                answer:     'Answer',
+                solution:   'Solution',
+                similar:    'Similar tasks',
+                similarNum: 'Similar task',
+                generate:   'Generate similar task',
             }
         };
 

@@ -16,6 +16,8 @@ initLinkClick();
 //
 //
 
+globalThis.TaskGenUrl = '/content/worker_taskGen.js';
+
 window.addEventListener('message', e =>
 {
     switch (e.data.command)
