@@ -28,6 +28,12 @@ body > article
     min-height: 100vh;
     margin: 0 auto;
     font-family: "Open Sans";
+
+    > *
+    {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 300px;
+    }
 }
 
 //
