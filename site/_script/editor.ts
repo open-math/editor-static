@@ -5,7 +5,7 @@ import { getCurrentTab } from "tab";
 declare let require, monaco;
 
 let editor;
-let changeDelay = 400;
+let changeDelay = 1000;
 
 let changeId = 0;
 
