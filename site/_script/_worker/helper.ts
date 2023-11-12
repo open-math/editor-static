@@ -65,6 +65,7 @@ export class EditorHelper extends Helper
             {
                 hint:       'Hint',
                 answer:     'Answer',
+                note:       'Note',
                 solution:   'Solution',
                 similar:    'Similar tasks',
                 similarNum: 'Similar task',
