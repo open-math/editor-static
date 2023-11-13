@@ -41,6 +41,11 @@ export class EditorHelper extends Helper
         return UNIQUE.get(id);
     }
 
+    getMathMacros(): object
+    {
+        return {};
+    }
+
     i18n(phrase: string): string
     {
         let phraseMap = {
