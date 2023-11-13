@@ -14,6 +14,8 @@ export enum StateProp
     Description = 'description',
     Tags = 'tags',
     Contributors = 'contributors',
+
+    Macros = 'macros',
 }
 
 export type TopicPart = StateProp.Article | StateProp.Summary | StateProp.Practicum;

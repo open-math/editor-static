@@ -12,6 +12,7 @@ export type TRequestData =
 {
     tab:        string;
     content:    string;
+    macros:     object;
 }
 
 export class TranslatorResult
@@ -47,7 +48,7 @@ onmessage = async e =>
 
     //
 
-    let result = await translate(data.tab, data.content);
+    let result = await translate(data.tab, data.content, data.macros);
 
     if (requestId !== requestIdMap[data.tab])
         return;
@@ -68,11 +69,13 @@ onmessage = async e =>
 
 let helper = new EditorHelper;
 
-async function translate(tab: string, content: string): Promise<TranslatorResult>
+async function translate(tab: string, content: string, macros: object): Promise<TranslatorResult>
 {
     let location = new Location;
         location.type = tab as LocationType;
         location.path = 'localhost';
+
+    helper.getMathMacros = () => macros;
 
     let parser = new Parser(location, helper);
     let renderer = new Renderer(location, helper);

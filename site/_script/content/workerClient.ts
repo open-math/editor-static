@@ -1,4 +1,5 @@
 import type { TInitData, TRequestData, TranslatorResult } from "_worker/translator";
+import { State, StateProp } from "state";
 
 let worker: Worker;
 let resultCb;
@@ -19,6 +20,7 @@ export function setupWorker(initData: TInitData)
 
 export function translate(data: TRequestData)
 {
+    try { data.macros = JSON.parse(State.get(StateProp.Macros)); } catch { data.macros = {} }
     worker.postMessage(data);
 }
 

@@ -154,6 +154,13 @@ body > aside.panes > .pane
             padding: 5px;
         }
 
+        hr
+        {
+            border-bottom: 1px solid var(--c_border);
+            padding: 0;
+            height: 0;
+        }
+
         textarea
         {
             resize: vertical;

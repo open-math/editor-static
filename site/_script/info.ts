@@ -19,4 +19,8 @@ export function initInifoPanel()
     let contributorsElem = panel.querySelector('.contributors') as HTMLTextAreaElement;
         contributorsElem.value = State.get(StateProp.Contributors) ?? '';
         contributorsElem.oninput = () => State.set(StateProp.Contributors, contributorsElem.value);
+
+    let macrosElem = panel.querySelector('.macros') as HTMLTextAreaElement;
+        macrosElem.value = State.get(StateProp.Macros) ?? '';
+        macrosElem.oninput = () => State.set(StateProp.Macros, macrosElem.value);
 }
