@@ -102,7 +102,10 @@ async function renderUniques()
     for (let i = 0; i < uniqueIds.length; i++)
     {
         let uniqueId = uniqueIds[i];
-        resultMap[uniqueId] = await renderer.renderBlocks(UNIQUE.get(uniqueId));
+        let uniqueBlocks = UNIQUE.get(uniqueId);
+    
+        if (uniqueBlocks)
+            resultMap[uniqueId] = await renderer.renderBlocks(uniqueBlocks);
     }
 
     return resultMap;
