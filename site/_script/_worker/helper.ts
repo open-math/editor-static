@@ -16,12 +16,12 @@ export class EditorHelper extends Helper
 {
     isEditor() { return true; }
 
-    async hasImage(location: Location): Promise<boolean>
+    async hasAsset(location: Location): Promise<boolean>
     {
         return !!(await get(normalizePath(location.target)));
     }
 
-    async getImageSrc(location: Location): Promise<string>
+    async getAssetSrc(location: Location): Promise<string>
     {
         return (await get(normalizePath(location.target)));
     }
